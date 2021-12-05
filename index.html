@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="reset.css">
+         
+</head>
+<body>
+   <div id="root">
+       <section class="Calculator">
+           <header>
+               <h1 lang="tr">Hesaplayıcı</h1>
+               <input type="text" readonly value="0" class="output" id="result">
+           </header>
+           <div>
+                   
+                            <ul class="grid"> 
+                                <li><button class="js-button" data-value="7" >7</button></li>
+                                <li><button class="js-button" data-value="8">8</button></li>
+                                <li><button class="js-button" data-value="9">9</button></li>
+                                <li class="del uppercase"><button class="js-button" id="delete" lang="tr">SİL</button></li>
+                                <li><button class="js-button" data-value="4">4</button></li>
+                                <li><button class="js-button" data-value="5">5</button></li>
+                                <li><button class="js-button" data-value="6">6</button></li>
+                                <li><button class="js-button" data-operand="+">+</button></li>
+                                <li><button class="js-button" data-value="1">1</button></li>
+                                <li><button class="js-button" data-value="2">2</button></li>
+                                <li><button class="js-button" data-value="3">3</button></li>
+                                <li><button class="js-button" data-operand="-">-</button></li>
+                                <li><button class="js-button" data-opernad=".">.</button></li>
+                                <li><button class="js-button" data-value="0">0</button></li>
+                                <li><button class="js-button" data-operand="/">/</button></li>
+                                <li><button class="js-button" data-operand="X">X</button></li>
+                                <li class="reset uppercase"><button  class=" js-button secondary" id="clear" lang="tr">Sıfırla</button></li>
+                                <li><button  class=" js-button tertiary" data-result="=" id="equals">=</button></li>
+             
+                            </ul>
+                          </div>
+                    </section>
+                </div>
+                </li>
+               </ul>
+           </div>
+       </section>
+   </div>
+   <noscript>Java Script Desteklenmiyor!</noscript>
+   <script>
+       (function init() {
+           var el = function(param) {
+               
+             if(param.charAt(0) === "#")  {
+                 return document.querySelector(param);
+                }
+           
+           return document.querySelectorAll(param);
+           
+       }
+ 
+       var viewer = el("#viewer"),
+           equals = el("#equals"),
+           deleteEl = el("#delete"),
+           clear = el("#clear"),
+           nums = el("[data-value]"),
+           ops= el("[data-operand]");
+       
+       var result= 0,
+           number2 ="",
+           number1="",
+           opernad="";
+       
+       var setNumber= function () {
+           number1 += this.getAttribute('data-value');
+           viewer.setAttribute('value' , number1)
+ }
+       for(var i = 0; i < nums.length; i++){
+        nums[i].onclick = setNumber
+    }
+    var moveNumber = function () {
+        number2 = number1;
+        number1 = "";
+        opernad = this.getAttribute("data-opernad");
+        viewer.setAttribute('value' , operand)
+    }
+    for (i = 0; i < ops.length; i++) {
+        ops[i].onclick = moveNumber
+        
+    }
+
+    var display = function () {
+        number2 = parseFloat(number2);
+        number1 = parseFloat(number1);
+        switch (operand) {
+            case "+":
+                  result = number1 + number2;
+                  break;
+            case "-":
+                  result = number1 - number2;
+                  break;
+            case "/":
+                  result = number1 / number2;
+                  break;
+            case "X":
+                  result = number1 * number2;
+                  break;
+            default:
+                      result = number2;
+                      break;
+
+
+
+        }
+        viewer.setAttribute('value' , result)
+    }
+    
+    
+    equals.onclick = display;
+
+
+    deleteEl.onclick = function () {
+        result=0;
+        number1 = number1.slice(0 , -1);
+        viewer.setAttribute('value' , number1 || 0);
+
+        
+    }
+    clear.onclick = function () {
+        result=0;
+        number2 ="";
+        number1 = "";
+        viewer.setAttribute('value' , result)
+
+    }
+
+ })()
+
+       
+   
+
+   </script>
+
+               
+
+    
+  
+</body>
+</html>
